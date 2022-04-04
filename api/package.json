@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "shell app to be built alongside the 805 CTS innovation directorate training program",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon start.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -18,5 +20,9 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   }
 }
