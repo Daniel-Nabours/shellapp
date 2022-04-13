@@ -9,16 +9,10 @@ const router = Router();
 router.post("/create", async (req, res) => {
   const newPost = new PostModel(req.body);
   try {
-    const savedPost = await newPost.save();
-    ws.clients.forEach(client => {
-      console.log(client.readyState)
-      if (client.readyState === 1) { 
-        client.send(JSON.stringify({ post: savedPost, action: "created" }));
-      }
-    });
+    const savedPost = await newPost.save(); 
     res.status(200).json(savedPost);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -43,11 +37,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const post = await PostModel.findById(req.params.id);
     if (post.userId === req.body.userId) {
-      await post.deleteOne();
-      ws.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN)
-          client.send({ post: post, action: "deleted" });
-      });
+      await post.deleteOne(); 
       res.status(200).json("the post has been deleted");
     } else {
       res.status(403).json("you can delete only your post");
@@ -95,18 +85,6 @@ router.get("/timeline/:userId", async (req, res) => {
     //   })
     // );
     res.status(200).json(userPosts);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//get user's all posts
-
-router.get("/profile/:username", async (req, res) => {
-  try {
-    const user = await UserModel.findOne({ username: req.params.username });
-    const posts = await PostModel.find({ userId: user._id });
-    res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -50,19 +50,7 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 
 app.use("/auth", authRoute);
 app.use("/posts", postRoute);
-
-const ws = new WebSocketServer({ noServer: true, path: "/events" }) 
-
-ws.on('connection', socket => {  
-  console.log("WebScoket connected")
-  socket.on("message", (msg) => {
-    const message = JSON.parse(msg) 
-    const outbound = JSON.stringify(message)
-    ws.clients.forEach(client => {
-      client.send(outbound)
-    })
-  })
-});
+ 
 
 
-export { app, ws };
+export { app };

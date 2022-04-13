@@ -26,19 +26,7 @@ const handleSignup = async (req, res) => {
   }
 };
 
-//LOGIN
-const handleLogin = async (req, res) => {
-  try {
-    //check if user exists
-    const user = await UserModel.findOne({ email: req.body.email });
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
-    !user || !validPassword && res.status(404).json("incorrect login information"); 
 
-    res.status(200).json(user)
-  } catch (err) {
-    res.status(500).json(err)
-  }
-}  
 
 router.post("/userlogin", handleLogin)
 router.post("/signup", handleSignup)

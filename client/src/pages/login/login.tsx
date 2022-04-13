@@ -1,31 +1,15 @@
 import "./login.css";
 import axios from "axios";
-import { FormEvent, useRef } from "react";
-import { useAuthContext } from "../../AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { useAuthContext } from "../../AuthContext"; 
 
 function LoginPage() {
-  const { setUser } = useAuthContext();
-  const goToPage = useNavigate();
+  const { setUser } = useAuthContext(); 
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
-  const login = async (creds: { email: string; password: string }) => {
-    try {
-      const res = await axios.post("/auth/userlogin", creds);
-      if (res.status >= 400) throw new Error("invalid resp")
-      else return res.data;
-    } catch (err) { 
-    }
+  const login = async (creds: { email: string; password: string }) => { 
   };
-  const handleClick = (e: any) => {
-    e.preventDefault();
-    login({
-      email: email.current!.value,
-      password: password.current!.value,
-    }).then((res) => {
-      setUser(res)
-      //goToPage("/")
-    }).catch(console.log);
+  const handleClick = (e: any) => { 
   };
   return (
     <div className="login">
