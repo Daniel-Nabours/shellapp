@@ -9,4 +9,7 @@ build:
 	sudo rm -r -f ~/appdb || echo "appdb volume does not exist, creating..."
 	sudo mkdir ~/appdb
 run:
-	sudo docker run -d -p 2717:27017 -v ~/appdb:/data/db --name db mongo:latest 
+	sudo docker run -d \
+		-p 2717:27017 \
+		--name db \
+		mongo:latest  
